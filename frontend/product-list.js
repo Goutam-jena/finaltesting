@@ -31,3 +31,5 @@ function displayProducts(products) {
 
 // Call the function to get and display products
 fetchProducts();
+
+
