@@ -1,33 +1,19 @@
-async function submitReview(productId, rating, comment) {
-  const response = await fetch('http://localhost:3000/api/reviews', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ productId, rating, comment }),
-  });
-  if (response.ok) {
-    console.log('Review submitted successfully!');
-    return await response.json();
-  } else {
-    console.error('Failed to submit review.');
-    return null;
-  }
-}
+// backend/products.js
+const express = require('express');
+const router = express.Router();
 
-async function getProductReviews(productId) {
-  const response = await fetch(`http://localhost:3000/api/reviews/${productId}`);
-  if (response.ok) {
-    const reviews = await response.json();
-    console.log(`Reviews for product ${productId}:`, reviews);
-    // Logic to display reviews on the page would go here
-    return reviews;
-  } else {
-    console.error('Failed to get reviews.');
-    return [];
-  }
-}
+const products = [
+  { id: 1, name: 'Laptop', price: 1200, category: 'Electronics' },
+  { id: 2, name: 'Smartphone', price: 800, category: 'Electronics' },
+  { id: 3, name: 'Coffee Mug', price: 15, category: 'Home Goods' },
+  { id: 4, name: 'T-Shirt', price: 25, category: 'Apparel' },
+  // Bug fix: The price for a new product was incorrect
+  { id: 5, name: 'Gaming Mouse', price: 50, category: 'Electronics' } 
+];
 
-// Example usage:
-// submitReview(1, 5, 'Great product, highly recommend!');
-// getProductReviews(1);
+router.get('/products', (req, res) => {
+  console.log("Serving product data...");
+  res.json(products);
+});
+
+module.exports = router;
